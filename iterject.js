@@ -1,58 +1,62 @@
 "use strict";
 
-
 function* gen(){}
-generatorPrototype = Object.getPrototypeOf(gen).prototype
+var generatorPrototype = Object.getPrototypeOf(gen).prototype
 var y = {};
 
 // main
+
 generatorPrototype.map = function* (f){
     for (let x of this) {
-      yield f(n.value);
+      yield f(x);
     }
 }
 
 generatorPrototype.filter = function* (f){
     for (let x of this) {
-      if (f(x.value)) {
-        yield n.value;
+      if (f(x)) {
+        yield x;
       }
     }
 }
 
-generatorPrototype.reduce = function* (f, acc){
+generatorPrototype.reduce = function (f, acc){
     for (let x of this) {
-      acc = f(acc, x.value)
+      acc = f(acc, x)
     }
     return acc;
 }
 
 // get some function from python
-y.toArray = function(gen){
-    return gen.reduce(function (acc, x) { return acc.concat([x]) }, []);
+generatorPrototype.toArray = function(){
+    return this.reduce(function (acc, x) { return acc.concat([x]) }, []);
 }
 
-y.count = function(start, step){
+y.fromArray = function* (array){
+      yield* array;
+}
+
+y.count = function* (start, step){
     if(start == null){
         start = 0
     }
     if(step == null){
         step = 1;
     }
-    while True:
-        yield start
-        start += step
+    while(true){
+        yield start;
+        start += step;
+    }
 }
 
 
 // from underscore
-y.range = function(start, stop, step){
+y.range = function* (start, stop, step){
     if (stop == null) {
       stop = start || 0;
       start = 0;
     }
     step = step || 1;
-
     var length = Math.max(Math.ceil((stop - start) / step), 0);
 
     for (var idx = 0; idx < length; idx++, start += step) {
@@ -61,6 +65,7 @@ y.range = function(start, stop, step){
 }
 
 
+module.exports = y;
 
 
 

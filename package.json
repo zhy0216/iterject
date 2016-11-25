@@ -9,6 +9,10 @@
   "scripts": {
     "test": "mocha"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com:zhy0216/iterject.git"
+  },
   "keywords": [
     "generator",
     "inject"

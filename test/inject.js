@@ -30,8 +30,27 @@ describe('main inject', function() {
 
     it('#slice', function(){
         var natureNumberGen = y.count()
-        assert.deepEqual(natureNumberGen.islice(null, 5).toArray(),
+        assert.deepEqual(natureNumberGen.islice(5).toArray(),
                             [0, 1, 2, 3, 4])
+    })
+
+    it('#Mersenne numbers', function(){
+        // Sequence of all Mersenne numbers.
+        function mersenneNumbers() {
+          return y.count(2).imap(x => 2**x - 1);
+        }
+
+        // Sequence of all Mersenne numbers that are prime.
+        function mersennePrimes() {
+          function isPrime(n) {
+            return y.range(2, n - 1).filter(x => n%x===0).length === 0;
+          }
+
+          return mersenneNumbers().ifilter(isPrime);
+        }
+
+        assert.deepEqual(mersennePrimes().take(3), [3, 7, 31]);
+
     })
 
 

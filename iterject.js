@@ -48,7 +48,12 @@ generatorPrototype.slice = function(start, stop, step){
     return this.slice(start, stop, step)
 }
 generatorPrototype.islice = function* (start, stop, step){
-    var it = y.range(start || 0, stop || Number.MAX_SAFE_INTEGER, step || 1)
+    if (stop == null) {
+      stop = start || Number.MAX_SAFE_INTEGER;
+      start = 0;
+    }
+    step = step || 1;
+    var it = y.range(start, stop, step)
     var nexti = it.next()
     for(let [i, element] of this.ienumerate()){
         if(nexti.done){
@@ -62,6 +67,27 @@ generatorPrototype.islice = function* (start, stop, step){
 
 }
 
+generatorPrototype.all = function(){
+    for (let x of this) {
+        if(!x){
+            return false
+        }
+    }
+    return true
+}
+
+generatorPrototype.any = function(){
+    for (let x of this) {
+        if(x){
+            return true
+        }
+    }
+    return false
+}
+
+generatorPrototype.take = function(n){
+    return this.islice(n).toArray()
+}
 
 // get some function from python
 generatorPrototype.toArray = function(){

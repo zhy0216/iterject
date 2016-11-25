@@ -2,9 +2,10 @@
 
 function* gen(){}
 var generatorPrototype = Object.getPrototypeOf(gen).prototype
-var y = {};
-
-// main
+var y = function* (iteratable){
+    yield* iteratable;;
+}
+// main inject
 
 generatorPrototype.map = function* (f){
     for (let x of this) {
@@ -26,6 +27,14 @@ generatorPrototype.reduce = function (f, acc){
     }
     return acc;
 }
+
+generatorPrototype.enumerate = function* (start){
+    start = start || 0;
+    for (let x of this) {
+        yield [start++, x]
+    }
+}
+
 
 // get some function from python
 generatorPrototype.toArray = function(){

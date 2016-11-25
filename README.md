@@ -1,5 +1,5 @@
 
-Inject generator helper function into prototype.
+Injecting generator helper function into the prototype to provide syntax sugar.
 
 
 some idea is from:

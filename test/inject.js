@@ -16,11 +16,16 @@ describe('main inject', function() {
     })
 
     it('#filter', function() {
-        assert.deepEqual(y.fromArray([1,2,10,11,46]).filter(x => x >= 10).toArray(), [10, 11, 46]);
-        assert.deepEqual(y.fromArray([1,10])
+        assert.deepEqual(y([1,2,10,11,46]).filter(x => x >= 10).toArray(), [10, 11, 46]);
+        assert.deepEqual(y([1,10])
                           .filter(x => x < 10)
                           .map(x => x+45).toArray(), [46]);
 
+    })
+
+    it('#enumerate', function(){
+        assert.deepEqual(y(["i", "am", "angry"]).enumerate().toArray(), 
+                                            [[0, "i"], [1, "am"], [2, "angry"]])
     })
 
 

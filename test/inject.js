@@ -42,11 +42,7 @@ describe('main inject', function() {
 
         // Sequence of all Mersenne numbers that are prime.
         function mersennePrimes() {
-          function isPrime(n) {
-            return y.range(2, n - 1).filter(x => n%x===0).length === 0;
-          }
-
-          return mersenneNumbers().ifilter(isPrime);
+          return mersenneNumbers().ifilter(n => y.range(2, n - 1).all(x => n%x));
         }
 
         assert.deepEqual(mersennePrimes().take(3), [3, 7, 31]);

@@ -67,18 +67,18 @@ generatorPrototype.islice = function* (start, stop, step){
 
 }
 
-generatorPrototype.all = function(){
+generatorPrototype.all = function(f){
     for (let x of this) {
-        if(!x){
+        if(!f(x)){
             return false
         }
     }
     return true
 }
 
-generatorPrototype.any = function(){
+generatorPrototype.any = function(f){
     for (let x of this) {
-        if(x){
+        if(f(x)){
             return true
         }
     }
